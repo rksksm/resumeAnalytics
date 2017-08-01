@@ -6,21 +6,11 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import RAKE
 import nltk, string
-from sklearn.feature_extraction.text import TfidfVectorizer
-from docx import Document
-import unicodedata
-import csv
-import pandas as pd
-import itertools
-import numpy as np
 import os
 from docx import Document
 import unicodedata
-from tabulate import tabulate
 from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
-import MySQLdb
-import mysql.connector
+
 
 # Create your views here.
 
@@ -73,21 +63,6 @@ def removeStopWords(filename):
     for para in filename.paragraphs:
         fullText.append(para.text)
     return '\n'.join(fullText)
-
-def fetchData(database, host, port, user, password, sql):
-    con = mysql.connector.connect(host=host, port=port, database=database, user=user, password=password)
-    cursor = con.cursor()
-    cursor.execute(sql)
-    data = cursor.fetchall()
-    return data
-
-
-def insertData(database, host, port, user, password, sql):
-    db = MySQLdb.connect(host=host, port=port, db=database, user=user, passwd=password)
-    cursor = db.cursor()
-    cursor.execute(sql)
-    db.commit()
-    return "Data Inserted"
 
 
 # filename = "/home/netlink/Downloads/ds_resume.docx"
